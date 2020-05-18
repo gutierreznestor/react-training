@@ -1,0 +1,7 @@
+.item {
+    background-color: var(--item-color);
+    flex-grow: 1;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+}

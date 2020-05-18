@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Board from './components/board/Board';
 
 function App() {
   return (
@@ -11,7 +12,9 @@ function App() {
         </div>
         <div>Intentos</div>
       </header>
-      <div className="container">Container</div>
+      <div className="container">
+        <Board />
+      </div>
     </div>
   );
 }
