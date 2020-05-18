@@ -1,6 +1,7 @@
 :root {
-  --bg-color: #264653;
-  --item-color: #e9c46a;
+  --bg-color: #1A535C;
+  --bg-item: #ffe66d;
+  --bg-item-2: #ff6b6b;
 }
 
 .App {
