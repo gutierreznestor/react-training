@@ -7,7 +7,8 @@ class Item extends React.Component  {
         super(props);
         this.state = {
             isFlipped: false,
-            disabled: false
+            disabled: false,
+            icon: props.icon
         }
     }
 
@@ -23,7 +24,7 @@ class Item extends React.Component  {
                     isFlipped: !this.state.isFlippedd,
                     disabled: !this.state.isFlipped
                     })}>
-                    <i className="fas fa-headphones fa-5x"></i>
+                    <i className={`fa-5x ${ this.state.icon}`}></i>
                 </div>
             </ReactCardFlip>
         </div>)

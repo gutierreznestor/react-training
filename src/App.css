@@ -2,13 +2,14 @@
   --bg-color: #1A535C;
   --bg-item: #ffe66d;
   --bg-item-2: #ff6b6b;
+  --white: #f7fff7;
 }
 
 .App {
   background-color: var(--bg-color);
   min-height: 100vh;
   font-size: 16px;
-  color: white;
+  color: var(--white);
 }
 
 .App-header {
