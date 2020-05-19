@@ -18,7 +18,7 @@ class App extends React.Component {
     });
   }
 
-  reset() {
+  resetScore() {
     this.setState({
       attempts: 0
     });
@@ -34,7 +34,7 @@ class App extends React.Component {
         <div className="container">
           <Board 
             addAttempt={ () => {this.addAttempt()}}
-            reset={ () => {this.reset()}}
+            resetScore={ () => {this.resetScore()}}
           />
         </div>
       </div>

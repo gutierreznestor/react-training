@@ -20,15 +20,16 @@ class Board extends React.Component  {
     flipItem (idx) {
         const board = [...this.state.board];
         board[idx].isFlipped = !board[idx].isFlipped;
+        board[idx].disabled = !board[idx].disabled;
         this.setState({board})
     }
 
-    handleClick (code, idx, icon) {
+    handleClick (idx, icon) {
         if (!this.state.current) {
             this.flipItem(idx);
             this.setState({
                 current: {
-                    code, idx, icon
+                    idx, icon
                 }
             })
         } else {
@@ -57,7 +58,7 @@ class Board extends React.Component  {
                 current: null
             });   
         }, this.waitForAnimation);
-        this.props.reset();
+        this.props.resetScore();
     }
 
     render() {
@@ -71,10 +72,8 @@ class Board extends React.Component  {
             { this.state.board.map( (item, idx) => (
                 <Item key={item.code} 
                     icon={item.icon}
-                    disabled={item.disabled}
                     isFlipped={item.isFlipped}
-                    code={item.code}
-                    handleClick={() => { this.handleClick(item.code,idx,item.icon)}}
+                    handleClick={() => { if (!item.disabled) this.handleClick (idx,item.icon)}}
                     match={item.match}
                     addAttempt={() => this.props.addAttempt()}
                 />
