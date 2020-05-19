@@ -6,25 +6,22 @@ class Item extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
-            isFlipped: false,
-            disabled: false,
-            icon: props.icon
+            isFlipped: false
         }
     }
 
+    handleClick() {
+        this.props.handleClick(this.props.index);
+    }
+
     render() {
-        return (<div>
-            <ReactCardFlip isFlipped={this.state.isFlipped} >
-                <div className="item" onClick={() => this.setState({
-                    isFlipped: !this.state.isFlippedd,
-                    disabled: !this.state.isFlipped
-                    })}>
+        return (
+        <div>
+            <ReactCardFlip isFlipped={this.props.isFlipped} >
+                <div className="item" onClick={() => this.handleClick()}>
                 </div>
-                <div className="icon" onClick={() => this.setState({
-                    isFlipped: !this.state.isFlippedd,
-                    disabled: !this.state.isFlipped
-                    })}>
-                    <i className={`fa-5x ${ this.state.icon}`}></i>
+                <div className="icon" onClick={() => this.handleClick()}>
+                    <i className={`fa-5x ${ this.props.icon}`}></i>
                 </div>
             </ReactCardFlip>
         </div>)

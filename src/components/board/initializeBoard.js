@@ -13,12 +13,15 @@ const icons = [
 export const initializeBoard = () => {
     let index = 0;
     const board = icons.reduce((acc, icon) => {
-        acc.push({icon, index});
+        let item = {icon, index, disabled: false, isFlipped: false};
+        acc.push(item);
         index++;
-        acc.push({icon, index});
+        acc.push({...item, index});
         index++;
         return acc;
     }, []);
+
+    // Shuffle array
     for (let i = board.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [board[i], board[j]] = [board[j], board[i]];

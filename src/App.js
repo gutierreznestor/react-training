@@ -2,21 +2,37 @@ import React from 'react';
 import './App.css';
 import Board from './components/board/Board';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div>React Memoria</div>
-        <div>
-          <button>Reiniciar</button>
+const initialState = {
+  attempts: 0
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  addAttempt() {
+    this.setState({
+        attempts: this.state.attempts+1
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <div>React Memoria</div>
+          <div>Intentos: { this.state.attempts }</div>
+        </header>
+        <div className="container">
+          <Board 
+            addAttempt={ () => {this.addAttempt()}}
+          />
         </div>
-        <div>Intentos</div>
-      </header>
-      <div className="container">
-        <Board />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
