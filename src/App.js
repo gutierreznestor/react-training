@@ -12,9 +12,9 @@ class App extends React.Component {
     this.state = initialState;
   }
 
-  addAttempt() {
+  addAttempt () {
     this.setState({
-        attempts: this.state.attempts+1
+      attempts: this.state.attempts+1
     });
   }
 

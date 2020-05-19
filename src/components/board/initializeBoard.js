@@ -26,5 +26,6 @@ export const initializeBoard = () => {
         const j = Math.floor(Math.random() * (i + 1));
         [board[i], board[j]] = [board[j], board[i]];
     }
-    return board;
+    const items = icons.length;
+    return {board, items};
 }

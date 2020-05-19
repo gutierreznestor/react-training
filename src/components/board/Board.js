@@ -3,14 +3,37 @@ import './Board.css';
 import Item from '../item/Item';
 import { initializeBoard } from './initializeBoard';
 
+const {board, items} = initializeBoard();
+const initialState = {
+    board,
+    current: null,
+    items,
+    matched: 0,
+    attempts: 0
+}
+
 class Board extends React.Component  {
     constructor(props) {
         super(props);
-        this.state = {
-            board: initializeBoard(),
-            current: null
-        }
+        this.state = initialState;
         this.waitForAnimation = 1000;
+    }
+
+    addAttempt(match) {
+        const newMatched = match? this.state.matched+1 : this.state.matched;
+        this.setState({
+            attempts: this.state.attempts+1
+        });
+        if (newMatched === this.state.items) {
+            setTimeout(() => {
+                this.resetBoard();
+            }, 3000);           
+        } else {
+            this.setState({
+                matched: newMatched
+            })
+        }
+        this.props.addAttempt();
     }
 
     areEquals( icon1, icon2 ) {
@@ -35,8 +58,10 @@ class Board extends React.Component  {
         } else {
             this.flipItem(idx);
             const areEquals = this.areEquals(this.state.current.icon, this.state.board[idx].icon);
+            let match = false;
             if (areEquals) {
-                this.setState({current: null})
+                this.setState({current: null});
+                match = true;
             } else {
                 setTimeout(() => {      
                     this.flipItem(idx);
@@ -44,7 +69,7 @@ class Board extends React.Component  {
                     this.setState({current: null})                
                 }, this.waitForAnimation);
             }
-            this.props.addAttempt();
+            this.addAttempt(match);            
         }
     }
 
@@ -52,10 +77,13 @@ class Board extends React.Component  {
         this.setState({
             board: this.state.board.map( item => ({...item, isFlipped: false}))
         });         
+        const {board, items} = initializeBoard()
         setTimeout(() => {
             this.setState({
-                board: initializeBoard(),
-                current: null
+                board: board,
+                current: null,
+                items,
+                matched: 0
             });   
         }, this.waitForAnimation);
         this.props.resetScore();
@@ -75,7 +103,6 @@ class Board extends React.Component  {
                     isFlipped={item.isFlipped}
                     handleClick={() => { if (!item.disabled) this.handleClick (idx,item.icon)}}
                     match={item.match}
-                    addAttempt={() => this.props.addAttempt()}
                 />
             ))}
             </div>
