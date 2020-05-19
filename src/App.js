@@ -18,6 +18,12 @@ class App extends React.Component {
     });
   }
 
+  reset() {
+    this.setState({
+      attempts: 0
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -28,6 +34,7 @@ class App extends React.Component {
         <div className="container">
           <Board 
             addAttempt={ () => {this.addAttempt()}}
+            reset={ () => {this.reset()}}
           />
         </div>
       </div>

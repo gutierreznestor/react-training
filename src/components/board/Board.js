@@ -7,7 +7,8 @@ class Board extends React.Component  {
     constructor(props) {
         super(props);
         this.state = {
-            board: initializeBoard()
+            board: initializeBoard(),
+            current: {}
         }
     }
     
@@ -35,11 +36,14 @@ class Board extends React.Component  {
                 board: initializeBoard()
             });   
         }, waitForAnimationToFinish);
+        this.props.reset();
     }
 
     render() {
-        return (<div>
-            <button onClick={ () => this.resetBoard()}>
+        return (<div className="container">
+            <button 
+                onClick={ () => this.resetBoard()}
+                className="resetButton">
                 Reiniciar
             </button>
             <div className="board">
