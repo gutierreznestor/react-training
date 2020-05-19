@@ -8,34 +8,55 @@ class Board extends React.Component  {
         super(props);
         this.state = {
             board: initializeBoard(),
-            current: {}
+            current: null
         }
+        this.waitForAnimation = 1000;
+    }
+
+    areEquals( icon1, icon2 ) {
+        return icon1 === icon2;
     }
     
-    handleClick(index) {
-        let board = this.state.board.map( item => {
-            if(item.index === index) return {
-                ...item,
-                isFlipped: !item.isFlipped
+    flipItem (idx) {
+        const board = [...this.state.board];
+        board[idx].isFlipped = !board[idx].isFlipped;
+        this.setState({board})
+    }
+
+    handleClick (code, idx, icon) {
+        if (!this.state.current) {
+            this.flipItem(idx);
+            this.setState({
+                current: {
+                    code, idx, icon
+                }
+            })
+        } else {
+            this.flipItem(idx);
+            const areEquals = this.areEquals(this.state.current.icon, this.state.board[idx].icon);
+            if (areEquals) {
+                this.setState({current: null})
+            } else {
+                setTimeout(() => {      
+                    this.flipItem(idx);
+                    this.flipItem(this.state.current.idx)              
+                    this.setState({current: null})                
+                }, this.waitForAnimation);
             }
-            return item;
-        });
-        this.setState({
-            board
-        });
-        this.props.addAttempt();
+            this.props.addAttempt();
+        }
     }
 
     resetBoard() {
         this.setState({
             board: this.state.board.map( item => ({...item, isFlipped: false}))
-        }); 
-        const waitForAnimationToFinish = 1000;
+        });         
         setTimeout(() => {
             this.setState({
-                board: initializeBoard()
+                board: initializeBoard(),
+                current: null
             });   
-        }, waitForAnimationToFinish);
+        }, this.waitForAnimation);
         this.props.reset();
     }
 
@@ -47,13 +68,14 @@ class Board extends React.Component  {
                 Reiniciar
             </button>
             <div className="board">
-            { this.state.board.map( item => (
-                <Item key={item.index} 
+            { this.state.board.map( (item, idx) => (
+                <Item key={item.code} 
                     icon={item.icon}
                     disabled={item.disabled}
                     isFlipped={item.isFlipped}
-                    index={item.index}
-                    handleClick={(idx) => { this.handleClick(idx)}}
+                    code={item.code}
+                    handleClick={() => { this.handleClick(item.code,idx,item.icon)}}
+                    match={item.match}
                     addAttempt={() => this.props.addAttempt()}
                 />
             ))}

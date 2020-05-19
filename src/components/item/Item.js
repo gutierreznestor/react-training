@@ -10,17 +10,13 @@ class Item extends React.Component  {
         }
     }
 
-    handleClick() {
-        this.props.handleClick(this.props.index);
-    }
-
     render() {
         return (
         <div>
-            <ReactCardFlip isFlipped={this.props.isFlipped} >
-                <div className="item" onClick={() => this.handleClick()}>
+            <ReactCardFlip isFlipped={this.props.isFlipped && !this.props.match} >
+                <div className="item" onClick={() => this.props.handleClick()}>
                 </div>
-                <div className="icon" onClick={() => this.handleClick()}>
+                <div className="icon" onClick={() => this.props.handleClick()}>
                     <i className={`fa-5x ${ this.props.icon}`}></i>
                 </div>
             </ReactCardFlip>

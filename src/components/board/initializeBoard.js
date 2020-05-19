@@ -11,13 +11,13 @@ const icons = [
     'fas fa-user-secret'];
 
 export const initializeBoard = () => {
-    let index = 0;
+    let code = 0;
     const board = icons.reduce((acc, icon) => {
-        let item = {icon, index, disabled: false, isFlipped: false};
+        let item = {icon, code, disabled: false, isFlipped: false, match: false};
         acc.push(item);
-        index++;
-        acc.push({...item, index});
-        index++;
+        code++;
+        acc.push({...item, code});
+        code++;
         return acc;
     }, []);
 
