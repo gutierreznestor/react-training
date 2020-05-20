@@ -1,14 +1,14 @@
 const icons = [
-    'fas fa-paper-plane',
-    'fas fa-gift',
-    'fas fa-glass-cheers',
-    'fas fa-snowman',
-    'fas fa-sleigh',
-    'fas fa-sun',
-    'fas fa-wifi',
-    'fas fa-cookie-bite',
-    'fas fa-truck',
-    'fas fa-user-secret'];
+    'fa-paper-plane',
+    'fa-gift',
+    'fa-glass-cheers',
+    'fa-snowman',
+    'fa-sleigh',
+    'fa-sun',
+    'fa-wifi',
+    'fa-cookie-bite',
+    'fa-truck',
+    'fa-user-secret'];
 
 export const initializeBoard = () => {
     let code = 0;

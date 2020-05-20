@@ -17,7 +17,7 @@ class Card extends React.Component  {
                 <div className="card card__item" onClick={() => this.props.handleClick()}>
                 </div>
                 <div className="card card__icon" onClick={() => this.props.handleClick()}>
-                    <i className={`fa-5x ${ this.props.icon}`}></i>
+                    <i className={`fa-5x fas ${ this.props.icon}`}></i>
                 </div>
             </ReactCardFlip>
         </div>)

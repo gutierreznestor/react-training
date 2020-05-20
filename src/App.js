@@ -34,6 +34,13 @@ class App extends React.Component {
             addAttempt={ () => {this.addAttempt()}}
             resetScore={ () => {this.resetScore()}}
           />
+          <div className="app__panel">
+            <div className="panel__player"></div>
+            <div className="panel__positions"></div>
+          </div>
+        </div>
+        <div className="app__footer">
+          Training 2020
         </div>
       </div>
     );
