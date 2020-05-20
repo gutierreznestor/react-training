@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Board from './components/board/Board';
+import Header from './components/header/Header';
 
 const initialState = {
   attempts: 0
@@ -27,10 +28,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="app">
-        <header className="app__header">
-          <div>React Memoria</div>
-          <div>Intentos: { this.state.attempts }</div>
-        </header>
+        <Header />
         <div className="app__content">
           <Board 
             addAttempt={ () => {this.addAttempt()}}

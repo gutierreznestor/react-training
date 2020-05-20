@@ -9,14 +9,6 @@ $color-white: #f7fff7;
   color: $color-white;
 }
 
-.app__header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 20px;
-  font-size: 1.2rem;
-}
-
 .app__content {
   height: 100%;
   display: flex;
