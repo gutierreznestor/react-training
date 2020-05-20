@@ -1,15 +1,15 @@
-.container {
+.board {
     display: flex;
     flex-direction: column;
     align-content: center;
 }
 
-.resetButton {
+.board__button {
     align-self: flex-start;
     margin: 5px;
 }
 
-.board {
+.board__content {
     display: flex;
     flex-wrap: wrap;
     width: 675px;

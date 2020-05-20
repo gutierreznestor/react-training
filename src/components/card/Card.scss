@@ -1,0 +1,23 @@
+$bg__item: #ffb300;
+$bg__item-2: #03dcf4;
+$color-black: #000;
+
+.card {
+    width: 125px;
+    height: 125px;
+    margin: 5px;
+    color: $color-black;
+}
+
+.card__item {
+    background-color: $bg__item;
+    flex-grow: 1;
+}
+
+.card__icon {
+    background-color: $bg__item-2;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}

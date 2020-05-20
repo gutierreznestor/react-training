@@ -1,6 +1,6 @@
 import React from 'react';
-import './Board.css';
-import Item from '../item/Item';
+import './Board.scss';
+import Card from '../card/Card';
 import { initializeBoard } from './initializeBoard';
 
 const {board, items} = initializeBoard();
@@ -90,15 +90,15 @@ class Board extends React.Component  {
     }
 
     render() {
-        return (<div className="container">
+        return (<div className="board">
             <button 
                 onClick={ () => this.resetBoard()}
-                className="resetButton">
+                className="board__button">
                 Reiniciar
             </button>
-            <div className="board">
+            <div className="board__content">
             { this.state.board.map( (item, idx) => (
-                <Item key={item.code} 
+                <Card key={item.code} 
                     icon={item.icon}
                     isFlipped={item.isFlipped}
                     handleClick={() => { if (!item.disabled) this.handleClick (idx,item.icon)}}

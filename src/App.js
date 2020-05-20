@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import Board from './components/board/Board';
 
 const initialState = {
@@ -26,12 +26,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className="app">
+        <header className="app__header">
           <div>React Memoria</div>
           <div>Intentos: { this.state.attempts }</div>
         </header>
-        <div className="container">
+        <div className="app__content">
           <Board 
             addAttempt={ () => {this.addAttempt()}}
             resetScore={ () => {this.resetScore()}}
