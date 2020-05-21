@@ -35,8 +35,23 @@ class App extends React.Component {
             resetScore={ () => {this.resetScore()}}
           />
           <div className="app__panel">
-            <div className="panel__player"></div>
-            <div className="panel__positions"></div>
+            <div className="panel__player">
+              <h3>Current player</h3>
+              <div>Name: Guty</div>
+              <div># Attempts: 12</div>
+            </div>
+            <div className="panel__positions">
+              <h3>Positions</h3>
+              <ol>
+                <li>player: 12</li>
+                <li>player: 12</li>
+                <li>player: 12</li>
+                <li>player: 12</li>
+                <li>player: 12</li>
+                <li>player: 12</li>
+                <li>player: 12</li>
+              </ol>
+            </div>
           </div>
         </div>
         <div className="app__footer">

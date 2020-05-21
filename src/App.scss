@@ -1,6 +1,11 @@
 $bg__color: #000;
 $color-white: #f7fff7;
 
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .app {
   background-color: $bg__color;
@@ -11,23 +16,40 @@ $color-white: #f7fff7;
 
 .app__content {
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 30px auto;
-}
-
-.app__panel {
-  display: flex;
-  flex-direction: row;
-  background-color: #EEEEEE;
+  @extend %flex-center;
+  padding: 30px;
 }
 
 .app__footer {
+  @extend %flex-center;
   height: 50px;
-  display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
   border-top: 1px solid #fff;
+}
+
+.app__panel {
+  @extend %flex-center;
+  flex-direction: column;
+  height: 100%;
+  min-width: 300px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.panel__player {
+  @extend %flex-center;
+  border: 1px solid $color-white;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0px;
+  padding: 20px;
+}
+
+.panel__positions {
+  @extend %flex-center;
+  flex-direction: column;
+  border: 1px solid $color-white;
+  margin: 10px 0px;
+  padding: 20px;
+  width: 100%;
 }
