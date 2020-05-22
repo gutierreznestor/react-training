@@ -59,10 +59,17 @@ class App extends React.Component {
     }, 1000);
   }
 
-  flipItem (idx, item) {
-    const board = [...this.state.board];
-    board[idx].isFlipped = !board[idx].isFlipped;
-    board[idx].disabled = !board[idx].disabled;
+  flipItem (code) {
+    const board = this.state.board.reduce((acc, item) => {
+      item.code === code ?
+        acc.push({
+          ...item,
+          isFlipped: !item.isFlipped,
+          disabled: !item.disabled
+        }) :
+        acc.push(item);
+      return acc;
+    }, []);
     this.setState({board})
   }
 
@@ -70,24 +77,26 @@ class App extends React.Component {
     return icon1 === icon2;
   }
 
-  onHandleClick (idx, icon) {
-    this.flipItem(idx,icon);
+  onHandleClick ({code, icon}) {
+    
+    this.flipItem(code);
     if (!this.state.current) {
         this.setState({
             current: {
-                idx, icon
+                code,
+                icon
             }
         })
     } else {
       let match = false;
-      const areEquals = this.areEquals(this.state.current.icon, this.state.board[idx].icon);
+      const areEquals = this.areEquals(this.state.current.icon, icon);
       if (areEquals) {
           this.setState({current: null});
           match = true;
       } else {
           setTimeout(() => {      
-              this.flipItem(idx);
-              this.flipItem(this.state.current.idx)              
+              this.flipItem(code);
+              this.flipItem(this.state.current.code)              
               this.setState({current: null})                
           }, 1200);
       }
