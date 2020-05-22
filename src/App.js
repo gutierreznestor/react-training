@@ -1,28 +1,108 @@
 import React from 'react';
 import './App.scss';
-import Board from './components/board/Board';
 import Header from './components/header/Header';
+import Board from './components/board';
+import { initializeBoard } from './components/board/initializeBoard';
 
-const initialState = {
-  attempts: 0
-}
+const {board, items} = initializeBoard();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState;
-  }
-
-  addAttempt () {
-    this.setState({
-      attempts: this.state.attempts+1
-    });
-  }
-
-  resetScore() {
-    this.setState({
+    this.state = {
+      board,
+      current: null,
+      items,
+      matched: 0,
       attempts: 0
-    });
+    };
+    this.addAttempt = this.addAttempt.bind(this);
+    this.onResetBoard = this.onResetBoard.bind(this);
+    this.onHandleClick = this.onHandleClick.bind(this);
+    this.flipItem = this.flipItem.bind(this);
+    this.areEquals = this.areEquals.bind(this);
+    this.hasWon = this.hasWon.bind(this);
+  }
+
+  hasWon (matched, items) {
+    return matched === items;
+  }
+
+  addAttempt (match) {
+    const newMatched = match? this.state.matched+1 : this.state.matched;
+    this.setState( prevState => ({
+        attempts: prevState.attempts+1
+    }));
+    if (this.hasWon(newMatched, this.state.items)) {
+        setTimeout(() => {
+            this.onResetBoard();
+        }, 3000);           
+    } else {
+        this.setState({
+            matched: newMatched
+        })
+    }
+  }
+
+  onResetBoard () {
+    this.setState(prevState => ({
+        board: prevState.board.map( item => ({...item, isFlipped: false}))
+    }));         
+    const {board, items} = initializeBoard()
+    setTimeout(() => {
+        this.setState({
+            board,
+            current: null,
+            items,
+            matched: 0,
+            attempts: 0
+        });   
+    }, 1000);
+  }
+
+  flipItem (code) {
+    const board = this.state.board.reduce((acc, item) => {
+      item.code === code ?
+        acc.push({
+          ...item,
+          isFlipped: !item.isFlipped,
+          disabled: !item.disabled
+        }) :
+        acc.push(item);
+      return acc;
+    }, []);
+    this.setState({board})
+  }
+
+  areEquals (icon1, icon2) {
+    return icon1 === icon2;
+  }
+
+  onHandleClick ({code, icon}) {
+    
+    this.flipItem(code);
+    if (!this.state.current) {
+        this.setState({
+            current: {
+                code,
+                icon
+            }
+        })
+    } else {
+      let match = false;
+      const areEquals = this.areEquals(this.state.current.icon, icon);
+      if (areEquals) {
+          this.setState({current: null});
+          match = true;
+      } else {
+          setTimeout(() => {      
+              this.flipItem(code);
+              this.flipItem(this.state.current.code)              
+              this.setState({current: null})                
+          }, 1200);
+      }
+      this.addAttempt(match);            
+    }
   }
 
   render() {
@@ -31,8 +111,8 @@ class App extends React.Component {
         <Header />
         <div className="app__content">
           <Board 
-            addAttempt={ () => {this.addAttempt()}}
-            resetScore={ () => {this.resetScore()}}
+            board= {this.state.board}
+            handleClick={ this.onHandleClick }
           />
           <div className="app__panel">
             <div className="panel__player">
