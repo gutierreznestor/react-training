@@ -93,21 +93,24 @@ class App extends React.Component {
       const areEquals = this.areEquals(this.state.current.icon, icon);
       if (areEquals) {
           match = true;
+          this.setState({current: null})                
       } else {
           setTimeout(() => {      
               this.flipItem(code);
               this.flipItem(this.state.current.code)              
+              this.setState({current: null})                
             }, 1200);
       }
       this.addAttempt(match);            
-      this.setState({current: null})                
     }
   }
 
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header 
+          newGame={ this.onResetBoard }
+        />
         <div className="app__content">
           <Board 
             board= {this.state.board}
@@ -117,7 +120,7 @@ class App extends React.Component {
             <div className="panel__player">
               <h3>Current player</h3>
               <div>Name: Guty</div>
-              <div># Attempts: 12</div>
+              <div># Attempts: { this.state.attempts }</div>
             </div>
             <div className="panel__positions">
               <h3>Positions</h3>
