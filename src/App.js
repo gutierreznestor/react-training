@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import Header from './components/header/Header';
+import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
 
@@ -92,16 +92,15 @@ class App extends React.Component {
       let match = false;
       const areEquals = this.areEquals(this.state.current.icon, icon);
       if (areEquals) {
-          this.setState({current: null});
           match = true;
       } else {
           setTimeout(() => {      
               this.flipItem(code);
               this.flipItem(this.state.current.code)              
-              this.setState({current: null})                
-          }, 1200);
+            }, 1200);
       }
       this.addAttempt(match);            
+      this.setState({current: null})                
     }
   }
 

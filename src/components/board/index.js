@@ -1,6 +1,6 @@
 import React from 'react';
-import './Board.css';
-import Item from '../item';
+import './Board.scss';
+import Card from '../card';
 
 class Board extends React.Component {
     constructor(props) {
@@ -15,16 +15,17 @@ class Board extends React.Component {
     }
 
     render() {
-        return (<div className="container">
+        return (
             <div className="board">
-            { this.props.board.map( item => (
-                <Item item={item}
-                    key={item.code}
-                    handleClick={ this.handleClick }
-                />
-            ))}
-            </div>
-        </div>)
+                <div className="board__content">
+                    { this.props.board.map( item => (
+                        <Card item={item}
+                            key={item.code}
+                            handleClick={ this.handleClick }
+                        />
+                    ))}
+                </div>
+            </div>)
     }
 }
 

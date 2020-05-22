@@ -1,5 +1,5 @@
 import React from 'react';
-import './Item.css';
+import './Card.scss';
 import ReactCardFlip from 'react-card-flip';
 
 class Item extends React.Component  {
@@ -16,13 +16,12 @@ class Item extends React.Component  {
         return (
         <div>
             <ReactCardFlip isFlipped={this.props.item.isFlipped && !this.props.item.match} >
-                <div className="item" 
+                <div className="card card__item" 
                     onClick={ this.handleClick }>
-                    <i className={`fa-5x ${ this.props.item.icon}`}></i>
                 </div>
-                <div className="icon" 
+                <div className="card card__icon" 
                     onClick={ this.handleClick }>
-                    <i className={`fa-5x ${ this.props.item.icon}`}></i>
+                    <i className={`fa-5x fas ${ this.props.item.icon}`}></i>
                 </div>
             </ReactCardFlip>
         </div>)
