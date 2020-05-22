@@ -3,26 +3,26 @@ $bg__item-2: #03dcf4;
 $color-black: #000;
 
 .card {
-    width: 100px;
-    height: 100px;
-    margin: 5px;
-    color: $color-black;
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  color: $color-black;
 }
 
 .card__item {
-    background-color: $bg__item;
-    flex-grow: 1;
+  background-color: $bg__item;
+  flex-grow: 1;
 }
 
 .card__icon {
-    background-color: $bg__item-2;
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    align-content: center;
+  background-color: $bg__item-2;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .ReactCardFlip {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }

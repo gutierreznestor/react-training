@@ -1,17 +1,17 @@
 .board {
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin: 10px;
 }
 
 .board__button {
-    align-self: flex-start;
-    margin: 5px;
+  align-self: flex-start;
+  margin: 5px;
 }
 
 .board__content {
-    display: flex;
-    flex-wrap: wrap;
-    width: 550px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 550px;
 }
