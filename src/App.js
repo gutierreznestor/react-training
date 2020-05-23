@@ -3,6 +3,7 @@ import './App.scss';
 import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
+import Player from './components/panel/player';
 
 const { board, items } = initializeBoard();
 
@@ -29,11 +30,12 @@ class App extends React.Component {
   }
 
   addAttempt(match) {
-    const newMatched = match ? this.state.matched + 1 : this.state.matched;
+    const { matched, items } = this.state;
+    const newMatched = match ? matched + 1 : matched;
     this.setState((prevState) => ({
       attempts: prevState.attempts + 1,
     }));
-    if (this.hasWon(newMatched, this.state.items)) {
+    if (this.hasWon(newMatched, items)) {
       setTimeout(() => {
         this.onResetBoard();
       }, 3000);
@@ -114,11 +116,7 @@ class App extends React.Component {
         <div className='app__content'>
           <Board board={this.state.board} handleClick={this.onHandleClick} />
           <div className='app__panel'>
-            <div className='panel__player'>
-              <h3>Current player</h3>
-              <div>Name: Guty</div>
-              <div># Attempts: {this.state.attempts}</div>
-            </div>
+            <Player attempts={this.state.attempts} />
             <div className='panel__positions'>
               <h3>Positions</h3>
               <ol>

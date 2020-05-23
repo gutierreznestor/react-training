@@ -1,0 +1,10 @@
+@import '../../../variables/global.scss';
+
+.panel__player {
+  @extend %flex-center;
+  border: 1px solid $color-white;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0px;
+  padding: 20px;
+}

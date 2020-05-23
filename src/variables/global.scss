@@ -1,0 +1,12 @@
+$bg__color: #000;
+$bg__item: #ffb300;
+$bg__item-2: #03dcf4;
+
+$color-white: #f7fff7;
+$color-black: #000;
+
+%flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
