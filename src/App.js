@@ -16,6 +16,8 @@ class App extends React.Component {
       items,
       matched: 0,
       attempts: 0,
+      currentPlayer: 'Player 01',
+      changePlayer: false,
     };
     this.addAttempt = this.addAttempt.bind(this);
     this.onResetBoard = this.onResetBoard.bind(this);
@@ -23,6 +25,8 @@ class App extends React.Component {
     this.flipItem = this.flipItem.bind(this);
     this.areEquals = this.areEquals.bind(this);
     this.hasWon = this.hasWon.bind(this);
+    this.onChangePlayer = this.onChangePlayer.bind(this);
+    this.onSetPlayer = this.onSetPlayer.bind(this);
   }
 
   hasWon(matched, items) {
@@ -109,14 +113,30 @@ class App extends React.Component {
     }
   }
 
+  onChangePlayer() {
+    this.setState({ changePlayer: true });
+  }
+
+  onSetPlayer(name) {
+    this.setState({ currentPlayer: name, changePlayer: false });
+  }
+
   render() {
     return (
       <div className='app'>
-        <Header newGame={this.onResetBoard} />
+        <Header
+          newGame={this.onResetBoard}
+          changePlayer={this.onChangePlayer}
+        />
         <div className='app__content'>
           <Board board={this.state.board} handleClick={this.onHandleClick} />
           <div className='app__panel'>
-            <Player attempts={this.state.attempts} />
+            <Player
+              attempts={this.state.attempts}
+              changePlayer={this.state.changePlayer}
+              currentPlayer={this.state.currentPlayer}
+              setPlayer={this.onSetPlayer}
+            ></Player>
             <div className='panel__positions'>
               <h3>Positions</h3>
               <ol>

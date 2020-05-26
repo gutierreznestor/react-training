@@ -20,7 +20,12 @@ class Header extends React.Component {
           <div onClick={this.newGame} className='header__actions__button'>
             New Game
           </div>
-          <div className='header__actions__button'>Change Player</div>
+          <div
+            onClick={this.props.changePlayer}
+            className='header__actions__button'
+          >
+            Change Player
+          </div>
         </div>
       </header>
     );
