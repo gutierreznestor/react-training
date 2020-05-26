@@ -31,10 +31,20 @@ class App extends React.Component {
     this.onChangePlayer = this.onChangePlayer.bind(this);
     this.onSetPlayer = this.onSetPlayer.bind(this);
     this.onResetPositions = this.onResetPositions.bind(this);
+    this.orderPositions = this.orderPositions.bind(this);
   }
 
   hasWon(matched, items) {
     return matched === items;
+  }
+
+  orderPositions(positions) {
+    positions = positions.sort((a, b) => {
+      const compare =
+        a.attempts < b.attempts ? -1 : a.attempts > b.attempts ? 1 : 0;
+      return compare;
+    });
+    return positions;
   }
 
   addAttempt(match) {
@@ -50,9 +60,12 @@ class App extends React.Component {
           attempts: this.state.attempts,
           key: this.state.gameNumber,
         };
-        this.setState((prevState) => ({
-          positions: [...prevState.positions, newPosition],
-        }));
+        this.setState((prevState) => {
+          let newPositions = [...prevState.positions, newPosition];
+          return {
+            positions: this.orderPositions(newPositions),
+          };
+        });
         this.onResetBoard();
       }, 3000);
     } else {
