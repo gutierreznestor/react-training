@@ -3,29 +3,20 @@ import ReactCardFlip from 'react-card-flip';
 import styled from 'styled-components';
 import { background, color, FlexCenter } from '../../variables/global';
 
-const Card = styled.div`
+const Card = styled(FlexCenter)`
   width: 100px;
   height: 100px;
   margin: 5px;
   color: ${color.black};
+  border-radius: 5px;
 `;
 
-const CardCenter = styled(FlexCenter)`
-  width: 100px;
-  height: 100px;
-  margin: 5px;
-  color: ${color.black};
-`;
-
-const CardItem = styled(Card)`
+const CardFront = styled(Card)`
   background-color: ${background.item_orange};
   flex-grow: 1;
 `;
 
-const CardIcon = styled(CardCenter)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const CardBack = styled(Card)`
   background-color: ${background.item_blue};
   flex-grow: 1;
 `;
@@ -45,10 +36,10 @@ class Item extends React.Component {
     return (
       <Card>
         <ReactCardFlip isFlipped={isFlipped && !match}>
-          <CardItem onClick={this.handleClick}></CardItem>
-          <CardIcon>
+          <CardFront onClick={this.handleClick}></CardFront>
+          <CardBack>
             <i className={`fa-5x fas ${icon}`}></i>
-          </CardIcon>
+          </CardBack>
         </ReactCardFlip>
       </Card>
     );
