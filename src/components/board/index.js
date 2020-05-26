@@ -1,6 +1,17 @@
 import React from 'react';
-import './Board.scss';
+import styled from 'styled-components';
 import Card from '../card';
+import { FlexCenter } from '../../variables/global';
+
+const StyledBoard = styled(FlexCenter)`
+  margin: 10px;
+`;
+
+const Content = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 550px;
+`;
 
 class Board extends React.Component {
   constructor(props) {
@@ -16,13 +27,13 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div className='board'>
-        <div className='board__content'>
+      <StyledBoard>
+        <Content>
           {this.props.board.map((item) => (
             <Card item={item} key={item.code} handleClick={this.handleClick} />
           ))}
-        </div>
-      </div>
+        </Content>
+      </StyledBoard>
     );
   }
 }
