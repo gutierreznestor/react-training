@@ -13,14 +13,13 @@ class Item extends React.Component {
   }
 
   render() {
+    const { isFlipped, match, icon } = this.props.item;
     return (
       <div>
-        <ReactCardFlip
-          isFlipped={this.props.item.isFlipped && !this.props.item.match}
-        >
+        <ReactCardFlip isFlipped={isFlipped && !match}>
           <div className='card card__item' onClick={this.handleClick}></div>
-          <div className='card card__icon' onClick={this.handleClick}>
-            <i className={`fa-5x fas ${this.props.item.icon}`}></i>
+          <div className='card card__icon'>
+            <i className={`fa-5x fas ${icon}`}></i>
           </div>
         </ReactCardFlip>
       </div>

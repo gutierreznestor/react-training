@@ -4,6 +4,7 @@ import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
 import Player from './components/panel/player';
+import Positions from './components/panel/positions';
 
 const { board, items } = initializeBoard();
 
@@ -18,15 +19,18 @@ class App extends React.Component {
       attempts: 0,
       currentPlayer: 'Player 01',
       changePlayer: false,
+      positions: [],
+      gameNumber: 0,
     };
     this.addAttempt = this.addAttempt.bind(this);
     this.onResetBoard = this.onResetBoard.bind(this);
-    this.onHandleClick = this.onHandleClick.bind(this);
+    this.onFlipItem = this.onFlipItem.bind(this);
     this.flipItem = this.flipItem.bind(this);
     this.areEquals = this.areEquals.bind(this);
     this.hasWon = this.hasWon.bind(this);
     this.onChangePlayer = this.onChangePlayer.bind(this);
     this.onSetPlayer = this.onSetPlayer.bind(this);
+    this.onResetPositions = this.onResetPositions.bind(this);
   }
 
   hasWon(matched, items) {
@@ -41,6 +45,14 @@ class App extends React.Component {
     }));
     if (this.hasWon(newMatched, items)) {
       setTimeout(() => {
+        const newPosition = {
+          player: this.state.currentPlayer,
+          attempts: this.state.attempts,
+          key: this.state.gameNumber,
+        };
+        this.setState((prevState) => ({
+          positions: [...prevState.positions, newPosition],
+        }));
         this.onResetBoard();
       }, 3000);
     } else {
@@ -59,13 +71,14 @@ class App extends React.Component {
     }));
     const { board, items } = initializeBoard();
     setTimeout(() => {
-      this.setState({
+      this.setState((prevState) => ({
         board,
         current: null,
         items,
         matched: 0,
         attempts: 0,
-      });
+        gameNumber: prevState.gameNumber + 1,
+      }));
     }, 1000);
   }
 
@@ -87,7 +100,7 @@ class App extends React.Component {
     return icon1 === icon2;
   }
 
-  onHandleClick({ code, icon }) {
+  onFlipItem({ code, icon }) {
     this.flipItem(code);
     if (!this.state.current) {
       this.setState({
@@ -121,15 +134,20 @@ class App extends React.Component {
     this.setState({ currentPlayer: name, changePlayer: false });
   }
 
+  onResetPositions() {
+    this.setState({ positions: [] });
+  }
+
   render() {
     return (
       <div className='app'>
         <Header
           newGame={this.onResetBoard}
           changePlayer={this.onChangePlayer}
+          resetPositions={this.onResetPositions}
         />
         <div className='app__content'>
-          <Board board={this.state.board} handleClick={this.onHandleClick} />
+          <Board board={this.state.board} handleClick={this.onFlipItem} />
           <div className='app__panel'>
             <Player
               attempts={this.state.attempts}
@@ -137,18 +155,7 @@ class App extends React.Component {
               currentPlayer={this.state.currentPlayer}
               setPlayer={this.onSetPlayer}
             ></Player>
-            <div className='panel__positions'>
-              <h3>Positions</h3>
-              <ol>
-                <li>player: 12</li>
-                <li>player: 12</li>
-                <li>player: 12</li>
-                <li>player: 12</li>
-                <li>player: 12</li>
-                <li>player: 12</li>
-                <li>player: 12</li>
-              </ol>
-            </div>
+            <Positions positions={this.state.positions} />
           </div>
         </div>
         <div className='app__footer'>Training 2020</div>
