@@ -1,6 +1,34 @@
 import React from 'react';
-import './Card.scss';
 import ReactCardFlip from 'react-card-flip';
+import styled from 'styled-components';
+import { background, color, FlexCenter } from '../../variables/global';
+
+const Card = styled.div`
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  color: ${color.black};
+`;
+
+const CardCenter = styled(FlexCenter)`
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  color: ${color.black};
+`;
+
+const CardItem = styled(Card)`
+  background-color: ${background.item_orange};
+  flex-grow: 1;
+`;
+
+const CardIcon = styled(CardCenter)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${background.item_blue};
+  flex-grow: 1;
+`;
 
 class Item extends React.Component {
   constructor(props) {
@@ -15,14 +43,14 @@ class Item extends React.Component {
   render() {
     const { isFlipped, match, icon } = this.props.item;
     return (
-      <div>
+      <Card>
         <ReactCardFlip isFlipped={isFlipped && !match}>
-          <div className='card card__item' onClick={this.handleClick}></div>
-          <div className='card card__icon'>
+          <CardItem onClick={this.handleClick}></CardItem>
+          <CardIcon>
             <i className={`fa-5x fas ${icon}`}></i>
-          </div>
+          </CardIcon>
         </ReactCardFlip>
-      </div>
+      </Card>
     );
   }
 }
