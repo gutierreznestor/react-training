@@ -67,7 +67,7 @@ class App extends React.Component {
           };
         });
         this.onResetBoard();
-      }, 3000);
+      }, 2000);
     } else {
       this.setState({
         matched: newMatched,

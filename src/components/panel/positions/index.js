@@ -1,19 +1,23 @@
 import React from 'react';
+import './Positions.scss';
 
 const Positions = (props) => {
   let positions = props.positions ? props.positions : [];
   return (
     <div className='panel__positions'>
       <h3>Positions</h3>
-      <ol>
+      <div>
         {positions.map((pos) => {
           return (
-            <li key={pos.key}>
-              {pos.player}: {pos.attempts}
-            </li>
+            <div key={pos.key}>
+              <div className='positions__items'>
+                <div>{pos.player}</div>
+                <div>{pos.attempts}</div>
+              </div>
+            </div>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 };
