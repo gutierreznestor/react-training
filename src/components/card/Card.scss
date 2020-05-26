@@ -13,11 +13,9 @@
 }
 
 .card__icon {
+  @extend %flex-center;
   background-color: $bg__item-2;
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-content: center;
 }
 
 .ReactCardFlip {

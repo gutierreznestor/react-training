@@ -3,7 +3,7 @@
 .app {
   background-color: $bg__color;
   min-height: 100vh;
-  font-size: 16px;
+  font-size: $font-size;
   color: $color-white;
 }
 
@@ -17,7 +17,7 @@
   @extend %flex-center;
   height: 50px;
   flex-direction: row;
-  border-top: 1px solid #fff;
+  border-top: $border;
 }
 
 .app__panel {
@@ -32,7 +32,7 @@
 .panel__positions {
   @extend %flex-center;
   flex-direction: column;
-  border: 1px solid $color-white;
+  border: $border;
   margin: 10px 0px;
   padding: 20px;
   width: 100%;
