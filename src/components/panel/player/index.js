@@ -1,5 +1,32 @@
 import React from 'react';
-import './Player.scss';
+import styled from 'styled-components';
+import { color, FlexCenter } from '../../../variables/global';
+
+const PanelPlayer = styled(FlexCenter)`
+  border: 1px solid ${color.white};
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0px;
+  padding: 20px;
+`;
+
+const FormPlayer = styled.form`
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const FormField = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+`;
+
+const FieldButton = styled.button`
+  margin-left: 10px;
+  padding: 0px 20px;
+`;
 
 class Player extends React.Component {
   constructor(props) {
@@ -23,24 +50,20 @@ class Player extends React.Component {
     let player;
     if (changePlayer) {
       player = (
-        <form className='form__player'>
+        <FormPlayer>
           <label>Please enter your name</label>
-          <div className='form__field'>
+          <FormField>
             <input
               onChange={this.onNameChange}
               value={this.state.name}
               type='text'
               placeholder='Enter your name'
             />
-            <button
-              onClick={this.onSubmit}
-              type='submit'
-              className='field__button'
-            >
+            <FieldButton onClick={this.onSubmit} type='submit'>
               OK
-            </button>
-          </div>
-        </form>
+            </FieldButton>
+          </FormField>
+        </FormPlayer>
       );
     } else {
       player = (
@@ -51,7 +74,7 @@ class Player extends React.Component {
         </div>
       );
     }
-    return <div className='panel__player'>{player}</div>;
+    return <PanelPlayer>{player}</PanelPlayer>;
   }
 }
 

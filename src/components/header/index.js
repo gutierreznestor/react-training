@@ -1,5 +1,37 @@
 import React from 'react';
-import './Header.scss';
+import styled from 'styled-components';
+import { border, color } from '../../variables/global';
+
+const StyledHeader = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid ${border.white};
+`;
+
+const Logo = styled.div`
+  background-color: ${color.white};
+  color: ${color.black};
+  padding: 3px 20px;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  font-weight: 700;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const ActionsButton = styled.div`
+  padding: 0 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 class Header extends React.Component {
   constructor(props) {
@@ -18,26 +50,18 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className='app__header'>
-        <div className='header__logo'>Logo</div>
-        <div className='header__actions'>
-          <div
-            onClick={this.resetPositions}
-            className='header__actions__button'
-          >
+      <StyledHeader>
+        <Logo>Logo</Logo>
+        <Actions>
+          <ActionsButton onClick={this.resetPositions}>
             Reset positions
-          </div>
-          <div onClick={this.newGame} className='header__actions__button'>
-            New Game
-          </div>
-          <div
-            onClick={this.props.changePlayer}
-            className='header__actions__button'
-          >
+          </ActionsButton>
+          <ActionsButton onClick={this.newGame}>New Game</ActionsButton>
+          <ActionsButton onClick={this.props.changePlayer}>
             Change Player
-          </div>
-        </div>
-      </header>
+          </ActionsButton>
+        </Actions>
+      </StyledHeader>
     );
   }
 }

@@ -1,12 +1,39 @@
 import React from 'react';
-import './App.scss';
 import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
 import Player from './components/panel/player';
 import Positions from './components/panel/positions';
+import styled from 'styled-components';
+import { color, FlexCenter, border } from './variables/global';
 
 const { board, items } = initializeBoard();
+
+const StyledApp = styled.div`
+  background-color: ${color.black};
+  min-height: 100vh;
+  font-size: $font-size;
+  color: ${color.white};
+`;
+
+const AppContent = styled(FlexCenter)`
+  height: 100%;
+  padding: 30px;
+`;
+
+const AppPanel = styled(FlexCenter)`
+  flex-direction: column;
+  height: 100%;
+  min-width: 300px;
+  padding: 20px;
+  margin: 10px;
+`;
+
+const AppFooter = styled(FlexCenter)`
+  height: 50px;
+  flex-direction: row;
+  border-top: ${border.white};
+`;
 
 class App extends React.Component {
   constructor(props) {
@@ -153,15 +180,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='app'>
+      <StyledApp>
         <Header
           newGame={this.onResetBoard}
           changePlayer={this.onChangePlayer}
           resetPositions={this.onResetPositions}
         />
-        <div className='app__content'>
+        <AppContent>
           <Board board={this.state.board} handleClick={this.onFlipItem} />
-          <div className='app__panel'>
+          <AppPanel>
             <Player
               attempts={this.state.attempts}
               changePlayer={this.state.changePlayer}
@@ -169,10 +196,10 @@ class App extends React.Component {
               setPlayer={this.onSetPlayer}
             ></Player>
             <Positions positions={this.state.positions} />
-          </div>
-        </div>
-        <div className='app__footer'>Training 2020</div>
-      </div>
+          </AppPanel>
+        </AppContent>
+        <AppFooter>Training 2020</AppFooter>
+      </StyledApp>
     );
   }
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const color = {
-  while: '#F7FFF7',
+  white: '#F7FFF7',
   black: '#000',
 };
 
@@ -16,3 +16,7 @@ export const FlexCenter = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const border = {
+  white: `1px solid ${color.white}`,
+};
