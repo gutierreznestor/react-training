@@ -20,3 +20,5 @@ export const FlexCenter = styled.div`
 export const border = {
   white: `1px solid ${color.white}`,
 };
+
+export const API_URL = 'https://5ecd9ca27c528e00167cd655.mockapi.io/memory/';

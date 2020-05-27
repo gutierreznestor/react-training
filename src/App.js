@@ -1,11 +1,13 @@
 import React from 'react';
+import styled from 'styled-components';
+import axios from 'axios';
+
 import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
 import Player from './components/panel/player';
 import Positions from './components/panel/positions';
-import styled from 'styled-components';
-import { color, FlexCenter, border } from './variables/global';
+import { color, FlexCenter, border, API_URL } from './variables/global';
 
 const { board, items } = initializeBoard();
 
@@ -60,6 +62,14 @@ class App extends React.Component {
     this.onSetPlayer = this.onSetPlayer.bind(this);
     this.onResetPositions = this.onResetPositions.bind(this);
     this.orderPositions = this.orderPositions.bind(this);
+    this.loadPositions = this.loadPositions.bind(this);
+  }
+
+  async loadPositions() {
+    const url = `${API_URL}positions`;
+    let { data: positions } = await axios.get(url);
+    positions = this.orderPositions(positions);
+    this.setState({ positions });
   }
 
   hasWon(matched, items) {
@@ -177,6 +187,10 @@ class App extends React.Component {
 
   onResetPositions() {
     this.setState({ positions: [] });
+  }
+
+  async componentDidMount() {
+    this.loadPositions();
   }
 
   render() {
