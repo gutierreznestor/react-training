@@ -23,6 +23,7 @@ const AppContent = styled(FlexCenter)`
 
 const AppPanel = styled(FlexCenter)`
   flex-direction: column;
+  flex-grow: 1;
   height: 100%;
   min-width: 300px;
   padding: 20px;

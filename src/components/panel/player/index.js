@@ -42,7 +42,8 @@ class Player extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    this.props.setPlayer(this.state.name);
+    let name = this.state.name ? this.state.name : 'John Doe';
+    this.props.setPlayer(name);
   }
 
   render() {
@@ -67,11 +68,11 @@ class Player extends React.Component {
       );
     } else {
       player = (
-        <div>
+        <FormPlayer>
           <h3>Current player</h3>
-          <div>Name: {this.props.currentPlayer}</div>
-          <div># Attempts: {this.props.attempts}</div>
-        </div>
+          <FormField>Name: {this.props.currentPlayer}</FormField>
+          <FormField># Attempts: {this.props.attempts}</FormField>
+        </FormPlayer>
       );
     }
     return <PanelPlayer>{player}</PanelPlayer>;

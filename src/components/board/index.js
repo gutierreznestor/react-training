@@ -5,6 +5,7 @@ import { FlexCenter } from '../../variables/global';
 
 const StyledBoard = styled(FlexCenter)`
   margin: 10px;
+  flex-grow: 2;
 `;
 
 const Content = styled.div`
