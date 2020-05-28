@@ -1,17 +1,16 @@
 import React from 'react';
 import { PanelPositions, PositionItems } from './Positions';
 
-const Positions = (props) => {
-  let positions = props.positions ? props.positions : [];
+const Positions = ({ positions = [] }) => {
   return (
     <PanelPositions>
       <h3>Positions</h3>
       <div>
-        {positions.map((pos) => {
+        {positions.map(({ key, player, attempts }) => {
           return (
-            <PositionItems key={pos.key}>
-              <div>{pos.player}</div>
-              <div>{pos.attempts}</div>
+            <PositionItems key={key}>
+              <div>{player}</div>
+              <div>{attempts}</div>
             </PositionItems>
           );
         })}

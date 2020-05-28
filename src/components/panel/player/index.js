@@ -15,40 +15,40 @@ class Player extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
-    let name = this.state.name ? this.state.name : 'John Doe';
-    this.props.setPlayer(name);
+    this.props.setPlayer(this.state.name || 'John Doe');
   }
 
   render() {
-    let { changePlayer } = this.props;
-    let player;
+    let { changePlayer, currentPlayer, attempts } = this.props;
     if (changePlayer) {
-      player = (
-        <FormPlayer>
-          <label>Please enter your name</label>
-          <FormField>
-            <input
-              onChange={this.onNameChange}
-              value={this.state.name}
-              type='text'
-              placeholder='Enter your name'
-            />
-            <FieldButton onClick={this.onSubmit} type='submit'>
-              OK
-            </FieldButton>
-          </FormField>
-        </FormPlayer>
-      );
-    } else {
-      player = (
-        <FormPlayer>
-          <h3>Current player</h3>
-          <FormField>Name: {this.props.currentPlayer}</FormField>
-          <FormField># Attempts: {this.props.attempts}</FormField>
-        </FormPlayer>
+      return (
+        <PanelPlayer>
+          <FormPlayer>
+            <label>Please enter your name</label>
+            <FormField>
+              <input
+                onChange={this.onNameChange}
+                value={this.state.name}
+                type='text'
+                placeholder='Enter your name'
+              />
+              <FieldButton onClick={this.onSubmit} type='submit'>
+                OK
+              </FieldButton>
+            </FormField>
+          </FormPlayer>
+        </PanelPlayer>
       );
     }
-    return <PanelPlayer>{player}</PanelPlayer>;
+    return (
+      <PanelPlayer>
+        <FormPlayer>
+          <h3>Current player</h3>
+          <FormField>Name: {currentPlayer}</FormField>
+          <FormField># Attempts: {attempts}</FormField>
+        </FormPlayer>
+      </PanelPlayer>
+    );
   }
 }
 

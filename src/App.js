@@ -9,7 +9,7 @@ import { AppContent } from './app-styles';
 import { AppPanel } from './app-styles';
 import { AppFooter } from './app-styles';
 
-const { board, items } = initializeBoard();
+const { board, totalItems } = initializeBoard();
 
 class App extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ class App extends React.Component {
     this.state = {
       board,
       current: null,
-      items,
-      matched: 0,
+      totalItems,
+      itemsMatched: 0,
       attempts: 0,
       currentPlayer: 'Player 01',
       changePlayer: false,
@@ -29,16 +29,10 @@ class App extends React.Component {
     this.onResetBoard = this.onResetBoard.bind(this);
     this.onFlipItem = this.onFlipItem.bind(this);
     this.flipItem = this.flipItem.bind(this);
-    this.areEquals = this.areEquals.bind(this);
-    this.hasWon = this.hasWon.bind(this);
     this.onChangePlayer = this.onChangePlayer.bind(this);
     this.onSetPlayer = this.onSetPlayer.bind(this);
     this.onResetPositions = this.onResetPositions.bind(this);
     this.orderPositions = this.orderPositions.bind(this);
-  }
-
-  hasWon(matched, items) {
-    return matched === items;
   }
 
   orderPositions(positions) {
@@ -51,17 +45,18 @@ class App extends React.Component {
   }
 
   addAttempt(match) {
-    const { matched, items } = this.state;
-    const newMatched = match ? matched + 1 : matched;
+    const { itemsMatched, totalItems } = this.state;
+    const newItemsMatched = match ? itemsMatched + 1 : itemsMatched;
     this.setState((prevState) => ({
       attempts: prevState.attempts + 1,
     }));
-    if (this.hasWon(newMatched, items)) {
+    if (newItemsMatched === totalItems) {
       setTimeout(() => {
+        const { currentPlayer, attempts, gameNumber } = this.state;
         const newPosition = {
-          player: this.state.currentPlayer,
-          attempts: this.state.attempts,
-          key: this.state.gameNumber,
+          player: currentPlayer,
+          attempts: attempts,
+          key: gameNumber,
         };
         this.setState((prevState) => {
           let newPositions = [...prevState.positions, newPosition];
@@ -73,7 +68,7 @@ class App extends React.Component {
       }, 2000);
     } else {
       this.setState({
-        matched: newMatched,
+        itemsMatched: newItemsMatched,
       });
     }
   }
@@ -85,13 +80,13 @@ class App extends React.Component {
         isFlipped: false,
       })),
     }));
-    const { board, items } = initializeBoard();
+    const { board, totalItems } = initializeBoard();
     setTimeout(() => {
       this.setState((prevState) => ({
         board,
         current: null,
-        items,
-        matched: 0,
+        totalItems,
+        itemsMatched: 0,
         attempts: 0,
         gameNumber: prevState.gameNumber + 1,
       }));
@@ -112,10 +107,6 @@ class App extends React.Component {
     this.setState({ board });
   }
 
-  areEquals(icon1, icon2) {
-    return icon1 === icon2;
-  }
-
   onFlipItem({ code, icon }) {
     this.flipItem(code);
     if (!this.state.current) {
@@ -127,8 +118,7 @@ class App extends React.Component {
       });
     } else {
       let match = false;
-      const areEquals = this.areEquals(this.state.current.icon, icon);
-      if (areEquals) {
+      if (this.state.current.icon === icon) {
         match = true;
         this.setState({ current: null });
       } else {
@@ -155,6 +145,13 @@ class App extends React.Component {
   }
 
   render() {
+    const {
+      board,
+      attempts,
+      changePlayer,
+      currentPlayer,
+      positions,
+    } = this.state;
     return (
       <StyledApp>
         <Header
@@ -163,15 +160,15 @@ class App extends React.Component {
           resetPositions={this.onResetPositions}
         />
         <AppContent>
-          <Board board={this.state.board} handleClick={this.onFlipItem} />
+          <Board board={board} flipItem={this.onFlipItem} />
           <AppPanel>
             <Player
-              attempts={this.state.attempts}
-              changePlayer={this.state.changePlayer}
-              currentPlayer={this.state.currentPlayer}
+              attempts={attempts}
+              changePlayer={changePlayer}
+              currentPlayer={currentPlayer}
               setPlayer={this.onSetPlayer}
             ></Player>
-            <Positions positions={this.state.positions} />
+            <Positions positions={positions} />
           </AppPanel>
         </AppContent>
         <AppFooter>Training 2020</AppFooter>
