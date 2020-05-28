@@ -1,18 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import Card from '../card';
-import { FlexCenter } from '../../variables/global';
-
-const StyledBoard = styled(FlexCenter)`
-  margin: 10px;
-  flex-grow: 2;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 550px;
-`;
+import { StyledBoard, Content } from './Board';
 
 class Board extends React.Component {
   constructor(props) {

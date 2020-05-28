@@ -4,37 +4,12 @@ import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
 import Player from './components/panel/player';
 import Positions from './components/panel/positions';
-import styled from 'styled-components';
-import { color, FlexCenter, border } from './variables/global';
+import { StyledApp } from './app-styles';
+import { AppContent } from './app-styles';
+import { AppPanel } from './app-styles';
+import { AppFooter } from './app-styles';
 
 const { board, items } = initializeBoard();
-
-const StyledApp = styled.div`
-  background-color: ${color.black};
-  min-height: 100vh;
-  font-size: $font-size;
-  color: ${color.white};
-`;
-
-const AppContent = styled(FlexCenter)`
-  height: 100%;
-  padding: 30px;
-`;
-
-const AppPanel = styled(FlexCenter)`
-  flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
-  min-width: 300px;
-  padding: 20px;
-  margin: 10px;
-`;
-
-const AppFooter = styled(FlexCenter)`
-  height: 50px;
-  flex-direction: row;
-  border-top: ${border.white};
-`;
 
 class App extends React.Component {
   constructor(props) {
