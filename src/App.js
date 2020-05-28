@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import Header from './components/header';
 import Board from './components/board';
 import { initializeBoard } from './components/board/initializeBoard';
@@ -8,6 +10,7 @@ import { StyledApp } from './app-styles';
 import { AppContent } from './app-styles';
 import { AppPanel } from './app-styles';
 import { AppFooter } from './app-styles';
+import { API_URL } from './variables/global';
 
 const { board, totalItems } = initializeBoard();
 
@@ -33,6 +36,14 @@ class App extends React.Component {
     this.onSetPlayer = this.onSetPlayer.bind(this);
     this.onResetPositions = this.onResetPositions.bind(this);
     this.orderPositions = this.orderPositions.bind(this);
+    this.loadPositions = this.loadPositions.bind(this);
+  }
+
+  async loadPositions() {
+    const url = `${API_URL}positions`;
+    let { data: positions } = await axios.get(url);
+    positions = this.orderPositions(positions);
+    this.setState({ positions });
   }
 
   orderPositions(positions) {
@@ -142,6 +153,10 @@ class App extends React.Component {
 
   onResetPositions() {
     this.setState({ positions: [] });
+  }
+
+  async componentDidMount() {
+    this.loadPositions();
   }
 
   render() {
